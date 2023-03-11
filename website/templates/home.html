@@ -1,0 +1,90 @@
+<!-- <link rel='stylesheet' type='text/css' href='styles/data.css' time(); /> -->
+<link 
+  rel  = "stylesheet"
+  type = "text/css"
+  href = "{{ url_for('static', filename = 'styles/data.css') }}"
+  >
+<div class="container">
+    <nav>
+        <ul>
+            <li><a href="#" class="logo">
+                    <span class="nav-item">
+                        {{username}}
+                    </span>
+                </a></li>
+            <li><a href="#">
+                    <i class="fas fa-menorah"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a></li>
+
+            <li><a href="/" class="logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item">Log out</span>
+                </a></li>
+        </ul>
+    </nav>
+    <section class="main">
+        <div class="main-top">
+            <h1>Personal Information</h1>
+            <!-- <i class="fas fa-user-cog"></i> -->
+        </div>
+        <div class="users">
+            <div class="card">
+                <h4>
+                    {{username}}
+                </h4>
+                {{dev_name}}
+                <div class="per">
+                    <table>
+                        <tr>
+                            <td><span>{{battery}}</span></td>
+                            <td><span>{{status}}</span></td>
+                        </tr>
+                        <tr>
+                            <td>Battery</td>
+                            <td>Status</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card">
+
+            <h1>Health Information</h1>
+
+        </div>
+
+        <section class="attendance">
+            <div class="attendance-list">
+                <h1>Details</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Age</th>
+                            <th>Calories Burn</th>
+                            <th>Blood Pressure</th>
+                            <th>Steps Walked</th>
+                            <th>Heart Rate</th>
+                            <th>Exercise Time</th>
+                            <th>Miles Run</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{age}}</td>
+                            <td>{{calories}}</td>
+                            <td>{{step_walked}}</td>
+                            <td>{{step_walked}}</td>
+                            <td>{{heart_rate}}</td>
+                            <td>{{exercise_time}}</td>
+                            <td>{{miles_run}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+
+</div>
