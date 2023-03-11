@@ -17,7 +17,7 @@ class SQL_Data(resource.Resource):
             user="root",
             password="msvcr100",
             database="iot",
-	    auth_plugin='auth_socket',
+	        auth_plugin='auth_socket',
         )
         
         # Create a cursor
