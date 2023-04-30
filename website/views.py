@@ -41,6 +41,47 @@ def home():
         fp.write("-----------------------------------------------\n")
         return render_template("login.html")
 
+@views.route('/sqli', methods=['GET', 'POST'])
+def home():
+    fp = open("Logs/Logs.txt","a")
+    if request.method == 'POST':
+        username = request.form.get("username")
+        password = request.form.get("password")
+        flag = "0"
+        fp.write("Time: " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+        fp.write("\nLogin attempt from: "+request.remote_addr+"\n")
+        fp.write(f"Username: {username}" + "\nPassword: " + password + "\n")
+        if "'" in username or '"' in username:
+            flag = "1"
+            fp.write("\nSQL Injection Detected\n")
+            flash("Incorrect Username or Password",category="error")
+            fp.write("SQL Injection Prevented\n")
+            fp.write("-----------------------------------------------\n")
+            return render_template("login.html")
+            
+        ret = asyncio.run(coap_get(username,password,flag))
+        if ret == b'[]':
+            flash("Incorrect Username or Password",category="error")
+            fp.write("Login Failed\n")
+            fp.write("-----------------------------------------------\n")
+            return render_template("login.html")
+            
+            
+        else:
+            responses = ret.decode("utf-8").replace("[","").replace("]","").replace("(","").replace(")","").replace(" ","").replace("'","").split(",")
+            session['messages'] = responses
+            if flag == "1":
+                fp.write("SQL Injection Successful\n")
+            else:
+                fp.write("Login Successful\n")
+            fp.write("-----------------------------------------------\n")
+            return redirect(url_for('views.login_home'))
+    else:
+        fp.write("Time: " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+        fp.write("\nConnection Established from: "+request.remote_addr+"\n")
+        fp.write("-----------------------------------------------\n")
+        return render_template("login.html")
+
 @views.route('/login')
 def login_home():
     response = session['messages']
