@@ -8,4 +8,4 @@ __pycache__
 iot_user.sql
 iot_user_dup.sql
 website/__pycache__
-environment_variables
+environment_variables.py
