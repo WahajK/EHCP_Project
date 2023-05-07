@@ -5,7 +5,7 @@ import mysql.connector
 cnx = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="msvcr100",
+  password="",
   database="iot"
 )
 
@@ -13,7 +13,7 @@ cnx = mysql.connector.connect(
 cursor = cnx.cursor()
 
 # Execute a query
-query = "SELECT * FROM user_dup"
+query = "SELECT * FROM user"
 cursor.execute(query)
 
 # Fetch all the rows

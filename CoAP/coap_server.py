@@ -15,7 +15,7 @@ class SQL_Data(resource.Resource):
         cnx = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="msvcr100",
+            password="",
             database="iot",
 	        auth_plugin='auth_socket',
         )

@@ -36,46 +36,52 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"
   ></script>
-  {% with messages = get_flashed_messages(with_categories=true)%}
-    {% if messages %}
-      {% for category, messages in messages %}
-        {% if category == 'error' %}
-          <div class = "alert alert-danger alert-dsmissable fade show">
-            {{messages}}
-            <button type = "button" class = "close" data-dismiss = "alert">
-              <span aria-hidden = "true">&times;</span>
-            </button>
-          </div> 
-        {% else %}
-          <div class = "alert alert-success alert-dsmissable fade show">
-            {{messages}}
-            <button type = "button" class = "close" data-dismiss = "alert">
-              <span aria-hidden = "true">&times;</span>
-            </button>
-          </div> 
-        {% endif %}
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
-  <div class="logo"></div>
-  <div class="header">Login </div>
-  <form class="login-block" method="post"> 
-    <h1>Login</h1>
-    <input 
-      type="text" 
-      placeholder="Username" 
-      name="username" 
-      id="username"  
-      required
-    />
-    <input 
-      type="password" 
-      id='psw' 
-      placeholder="Password" 
-      name="password" 
-      required 
-    />
-    <button type="submit">Login</button>
-  </form>
+  {% autoescape false %}
+    {% with messages = get_flashed_messages(with_categories=true)%}
+      {% if messages %}
+        {% for category, messages in messages %}
+          {% if category == 'error' %}
+            <div class = "alert alert-danger alert-dsmissable fade show">
+              {{messages|safe}}
+              <button type = "button" class = "close" data-dismiss = "alert">
+                <span aria-hidden = "true">&times;</span>
+              </button>
+            </div>
+          {% else %}
+            <div class = "alert alert-success alert-dsmissable fade show">
+              {{messages|safe}}
+              <button type = "button" class = "close" data-dismiss = "alert">
+                <span aria-hidden = "true">&times;</span>
+              </button>
+            </div> 
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <div class="logo"></div>
+    <div class="header">Login </div>
+    <form class="login-block" method="POST" action="{{ url_for('views.home') }}"> 
+      
+      <h1>Login</h1>
+      <input 
+        type="text" 
+        placeholder="Username" 
+        name="username" 
+        id="username"  
+        required
+      />
+      <input 
+        type="password" 
+        id='psw' 
+        placeholder="Password" 
+        name="password" 
+        required 
+      />
+      {{ form.csrf_token }}
+      {{ form.hidden_tag() }}
+      {{ form.recaptcha() }}
+      <button type="submit" >Login</button>
+    </form>
+  {% endautoescape %}
 </body>
 </html>

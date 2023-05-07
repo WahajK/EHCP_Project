@@ -1,3 +1,10 @@
 Docs
 WriteUp
 Related Work-v3.docx
+Test_Files
+HoneypotEnv
+Logs
+__pycache__
+iot_user.sql
+iot_user_dup.sql
+website/__pycache__

