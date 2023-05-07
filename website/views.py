@@ -3,8 +3,6 @@ import asyncio
 from aiocoap import *
 from datetime import datetime
 from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
 
 views = Blueprint('views', __name__)
 
