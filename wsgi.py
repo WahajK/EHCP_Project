@@ -9,6 +9,7 @@ limiter = Limiter(
     default_limits=["200 per day", "50 per hour"],
     storage_uri="memory://",
 )
+
 if __name__ == "__main__":
     
     app.run()
