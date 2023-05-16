@@ -11,9 +11,8 @@ def attack():
         attack_num += 1
         print(attack_num)
         
-        # s.close()
         
-target = '192.168.43.240' #Change later to Home IP
+target = '127.0.0.1'
 port = 5000
 try:
   for _ in range(500):
